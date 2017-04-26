@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>de.netnexus.camelcaseplugin</id>
   <name>CamelCase</name>
-  <version>1.4.2</version>
+  <version>2.0.0</version>
   <vendor email="info@netnexus.de" url="http://netnexus.de">NetNexus IT Services</vendor>
 
   <description><![CDATA[
@@ -10,6 +10,24 @@
 
   <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
+
+      <p>Release 2.0:
+      <ul>
+        <li>Introduce config panel to switch off certain transformations (Preferences / Editor / Camel Case)</li>
+      </ul>
+      </p>
+
+      <p>Release 1.6:
+      <ul>
+        <li>Bugfix: double underscore (thanks to John)</li>
+      </ul>
+      </p>
+
+      <p>Release 1.5:
+      <ul>
+        <li>added hyphen-separated-notation</li>
+      </ul>
+      </p>
 
       <p>Release 1.4:
       <ul>
@@ -66,5 +84,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
+    <projectService serviceInterface="de.netnexus.CamelCasePlugin.CamelCaseConfig" serviceImplementation="de.netnexus.CamelCasePlugin.CamelCaseConfig"/>
+    <projectConfigurable groupId="editor" displayName="Camel Case" id="preferences.CamelCasePlugin" instance="de.netnexus.CamelCasePlugin.CamelCasePluginConfigurable" />
   </extensions>
 </idea-plugin>

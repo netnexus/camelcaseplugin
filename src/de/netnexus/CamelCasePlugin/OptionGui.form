@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="de.netnexus.CamelCasePlugin.OptionGui">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="190"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="489b4" class="javax.swing.JCheckBox" binding="cb1">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="snake_case to kebab-case"/>
+        </properties>
+      </component>
+      <component id="84989" class="javax.swing.JCheckBox" binding="cb3">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="270" height="20"/>
+          </grid>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="SNAKE_CASE to CamelCase"/>
+        </properties>
+      </component>
+      <component id="8709d" class="javax.swing.JCheckBox" binding="cb4">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <selected value="true"/>
+          <text value="CamelCase to camelCase"/>
+        </properties>
+      </component>
+      <component id="8b5fe" class="javax.swing.JCheckBox" binding="cb5">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="camelCase to snake_case"/>
+        </properties>
+      </component>
+      <component id="bd0ec" class="javax.swing.JCheckBox" binding="cb2">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="270" height="20"/>
+          </grid>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="kebab-case to SNAKE_CASE"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
