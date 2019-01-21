@@ -6,7 +6,7 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @State(
         name = "CamelCaseConfig",
@@ -19,6 +19,7 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
     public boolean cb3State = true;
     public boolean cb4State = true;
     public boolean cb5State = true;
+    public boolean cb6State = true;
 
 
     CamelCaseConfig() {
@@ -63,6 +64,10 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
     public void setcb5State(boolean cb5) {
         this.cb5State = cb5;
     }
+
+    public boolean getcb6State() { return cb6State; }
+
+    public void setcb6State(boolean cb6) { this.cb6State = cb6; }
 
     @Nullable
     @Override

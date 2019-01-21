@@ -58,11 +58,17 @@ public class ToggleCamelCase extends MultiCaretCodeInsightAction {
                 String newText;
                 boolean repeat = false;
                 assert text != null;
-                if (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State()) {
+                if (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State() || config.getcb6State()) {
                     do {
                         if (text.equals(text.toLowerCase()) && text.contains("_")) {
-                            // snake_case to snake-case
-                            newText = text.replace('_', '-');
+                            // snake_case to space case
+                            newText = text.replace('_', ' ');
+                            repeat = !config.getcb6State();
+
+                        }
+                        else if (text.equals(text.toLowerCase()) && text.contains(" ")) {
+                            // space case to snake-case
+                            newText = text.replace(' ', '-');
                             repeat = !config.getcb1State();
 
                         } else if (text.equals(text.toLowerCase()) && text.contains("-")) {

@@ -14,6 +14,7 @@ public class OptionGui {
     private JCheckBox cb5;
     private JCheckBox cb4;
     private JCheckBox cb1;
+    private JCheckBox cb6;
     private CamelCaseConfig mConfig;
 
     private JPanel rootPanel;
@@ -29,6 +30,7 @@ public class OptionGui {
         cb3.setSelected(mConfig.getcb3State());
         cb4.setSelected(mConfig.getcb4State());
         cb5.setSelected(mConfig.getcb5State());
+        cb6.setSelected(mConfig.getcb6State());
     }
 
     public JPanel getRootPanel() {
@@ -46,6 +48,7 @@ public class OptionGui {
         mConfig.setcb3State(cb3.isSelected());
         mConfig.setcb4State(cb4.isSelected());
         mConfig.setcb5State(cb5.isSelected());
+        mConfig.setcb6State(cb6.isSelected());
 
     }
 
