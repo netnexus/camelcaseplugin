@@ -17,6 +17,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.prefs.Preferences;
 
 /**
@@ -24,6 +25,18 @@ import java.util.prefs.Preferences;
  */
 public class ToggleCamelCase extends MultiCaretCodeInsightAction {
     private static CamelCaseConfig config;
+    private static String next;
+
+    public static void replaceText(final Editor editor, final String replacement) {
+        new WriteAction<Object>() {
+            @Override
+            protected void run(Result<Object> result) throws Throwable {
+                int start = editor.getSelectionModel().getSelectionStart();
+                EditorModificationUtil.insertStringAtCaret(editor, replacement);
+                editor.getSelectionModel().setSelection(start, start + replacement.length());
+            }
+        }.execute().throwException();
+    }
 
     @NotNull
     @Override
@@ -56,40 +69,108 @@ public class ToggleCamelCase extends MultiCaretCodeInsightAction {
                 }
 
                 String newText;
-                boolean repeat = false;
+                boolean repeat;
                 assert text != null;
+                next = null;
                 if (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State() || config.getcb6State()) {
                     do {
+                        newText = text;
                         if (text.equals(text.toLowerCase()) && text.contains("_")) {
                             // snake_case to space case
-                            newText = text.replace('_', ' ');
-                            repeat = !config.getcb6State();
+                            if (next == null) {
+                                setNext("snake_case");
+                                repeat = true;
+                            } else {
+                                if (next.equals("space case")) {
+                                    repeat = !config.getcb6State();
+                                    setNext("space case");
 
-                        }
-                        else if (text.equals(text.toLowerCase()) && text.contains(" ")) {
-                            // space case to snake-case
-                            newText = text.replace(' ', '-');
-                            repeat = !config.getcb1State();
+
+                                } else {
+                                    repeat = true;
+                                }
+                            }
+                            newText = text.replace('_', ' ');
+
+                        } else if (text.equals(text.toLowerCase()) && text.contains(" ")) {
+                            // space case to kebab-case
+                            if (next == null) {
+                                setNext("space case");
+                                repeat = true;
+                            } else {
+                                newText = text.replace(' ', '-');
+                                if (next.equals("kebab-case")) {
+                                    repeat = !config.getcb1State();
+                                    setNext("kebab-case");
+
+                                } else {
+                                    repeat = true;
+                                }
+                            }
 
                         } else if (text.equals(text.toLowerCase()) && text.contains("-")) {
-                            // snake-case to SNAKE_CASE
-                            newText = text.replace('-', '_').toUpperCase();
-                            repeat = !config.getcb2State();
+                            // kebab-case to SNAKE_CASE
+                            if (next == null) {
+                                setNext("kebab-case");
+                                repeat = true;
+                            } else {
+                                newText = text.replace('-', '_').toUpperCase();
+                                if (next.equals("SNAKE_CASE")) {
+                                    repeat = !config.getcb2State();
+                                    setNext("SNAKE_CASE");
+
+                                } else {
+                                    repeat = true;
+                                }
+                            }
 
                         } else if (text.equals(text.toUpperCase()) && text.contains("_")) {
-                            // SNAKE_CASE to SnakeCase
-                            newText = toCamelCase(text.toLowerCase());
-                            repeat = !config.getcb3State();
+                            // SNAKE_CASE to CamelCase
+                            if (next == null) {
+                                setNext("SNAKE_CASE");
+                                repeat = true;
+                            } else {
+                                newText = toCamelCase(text.toLowerCase());
+                                if (next.equals("CamelCase")) {
+                                    repeat = !config.getcb3State();
+                                    setNext("CamelCase");
+
+                                } else {
+                                    repeat = true;
+                                }
+                            }
 
                         } else if (!text.equals(text.toUpperCase()) && text.substring(0, 1).equals(text.substring(0, 1).toUpperCase()) && !text.contains("_")) {
                             // CamelCase to camelCase
-                            newText = text.substring(0, 1).toLowerCase() + text.substring(1, text.length());
-                            repeat = !config.getcb4State();
+                            if (next == null) {
+                                setNext("CamelCase");
+                                repeat = true;
+                            } else {
+                                newText = text.substring(0, 1).toLowerCase() + text.substring(1, text.length());
+                                if (next.equals("camelCase")) {
+                                    repeat = !config.getcb4State();
+                                    setNext("camelCase");
+
+                                } else {
+                                    repeat = true;
+                                }
+                            }
 
                         } else {
                             // camelCase to snake_case
-                            newText = toSnakeCase(text);
-                            repeat = !config.getcb5State();
+                            if (next == null) {
+                                setNext("camelCase");
+                                repeat = true;
+                            } else {
+                                newText = toSnakeCase(text);
+                                if (next.equals("snake_case")) {
+                                    repeat = !config.getcb5State();
+                                    setNext("snake_case");
+
+                                } else {
+                                    repeat = true;
+                                }
+                            }
 
                         }
                         text = newText;
@@ -110,6 +191,18 @@ public class ToggleCamelCase extends MultiCaretCodeInsightAction {
         };
     }
 
+    private void setNext(String conversion) {
+        int index;
+        String[] order = config.getmodel();
+        index = Arrays.asList(order).indexOf(conversion) + 1;
+        if (index < order.length) {
+            next = order[index];
+
+        } else {
+            next = order[0];
+        }
+    }
+
     protected Runnable getRunnableWrapper(final Project project, final Runnable runnable) {
         return new Runnable() {
             @Override
@@ -117,17 +210,6 @@ public class ToggleCamelCase extends MultiCaretCodeInsightAction {
                 CommandProcessor.getInstance().executeCommand(project, runnable, "camelCase", ActionGroup.EMPTY_GROUP);
             }
         };
-    }
-
-    public static void replaceText(final Editor editor, final String replacement) {
-        new WriteAction<Object>() {
-            @Override
-            protected void run(Result<Object> result) throws Throwable {
-                int start = editor.getSelectionModel().getSelectionStart();
-                EditorModificationUtil.insertStringAtCaret(editor, replacement);
-                editor.getSelectionModel().setSelection(start, start + replacement.length());
-            }
-        }.execute().throwException();
     }
 
     /**

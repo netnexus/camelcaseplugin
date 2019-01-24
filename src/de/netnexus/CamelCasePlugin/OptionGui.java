@@ -6,9 +6,14 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 public class OptionGui {
+    private DefaultListModel model;
     private JCheckBox cb2;
     private JCheckBox cb3;
     private JCheckBox cb5;
@@ -18,9 +23,39 @@ public class OptionGui {
     private CamelCaseConfig mConfig;
 
     private JPanel rootPanel;
+    private JButton upButton;
+    private JButton downButton;
+    private JList list1;
 
     OptionGui() {
 
+        upButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String selectedItem = (String) list1.getSelectedValue();
+                int itemIndex = list1.getSelectedIndex();
+
+                if(itemIndex > 0){
+                    model.remove(itemIndex);
+                    model.add(itemIndex - 1, selectedItem);
+                    list1.setSelectedIndex(itemIndex - 1);
+                }
+            }
+        });
+        downButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedItem = (String) list1.getSelectedValue();
+                int itemIndex = list1.getSelectedIndex();
+
+                if( itemIndex < model.getSize() -1 ){
+                    model.remove(itemIndex);
+                    model.add(itemIndex + 1, selectedItem);
+                    list1.setSelectedIndex(itemIndex + 1);
+                }
+            }
+        });
     }
 
     public void createUI(Project project) {
@@ -31,6 +66,19 @@ public class OptionGui {
         cb4.setSelected(mConfig.getcb4State());
         cb5.setSelected(mConfig.getcb5State());
         cb6.setSelected(mConfig.getcb6State());
+
+        if (mConfig.getmodel()!=null){
+            model = new DefaultListModel();
+            for(Object obj : mConfig.getmodel()){
+                model.addElement(obj);
+            }
+            list1.setModel(model);
+        }else {
+            model = (DefaultListModel)list1.getModel();
+            list1.setModel(model);
+
+
+        }
     }
 
     public JPanel getRootPanel() {
@@ -50,6 +98,12 @@ public class OptionGui {
         mConfig.setcb5State(cb5.isSelected());
         mConfig.setcb6State(cb6.isSelected());
 
+        Object[] oValues= model.toArray();
+        String[] sValues = new String[oValues.length];
+        for (int index = 0; index < oValues.length; index++) {
+            sValues[index] = oValues[index].toString();
+        }
+        mConfig.setListModel(sValues);
     }
 
     {

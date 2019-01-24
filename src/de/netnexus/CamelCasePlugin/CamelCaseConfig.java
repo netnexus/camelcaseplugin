@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 @State(
         name = "CamelCaseConfig",
         storages = {
-                @Storage("CamelCaseConfig.xml")}
+                @Storage("CamelCaseConfigNew.xml")}
 )
 public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig> {
     public boolean cb1State = true;
@@ -20,9 +20,21 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
     public boolean cb4State = true;
     public boolean cb5State = true;
     public boolean cb6State = true;
+    public String[] model = {
+            "kebab-case",
+            "SNAKE_CASE",
+            "CamelCase",
+            "camelCase",
+            "snake_case",
+            "space case"};
 
 
     CamelCaseConfig() {
+    }
+
+    @Nullable
+    public static CamelCaseConfig getInstance(Project project) {
+        return ServiceManager.getService(project, CamelCaseConfig.class);
     }
 
     public boolean getcb1State() {
@@ -65,9 +77,21 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
         this.cb5State = cb5;
     }
 
-    public boolean getcb6State() { return cb6State; }
+    public boolean getcb6State() {
+        return cb6State;
+    }
 
-    public void setcb6State(boolean cb6) { this.cb6State = cb6; }
+    public void setcb6State(boolean cb6) {
+        this.cb6State = cb6;
+    }
+
+    public String[] getmodel() {
+        return model;
+    }
+
+    public void setListModel(String[] model) {
+        this.model = model;
+    }
 
     @Nullable
     @Override
@@ -78,10 +102,5 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
     @Override
     public void loadState(CamelCaseConfig singleFileExecutionConfig) {
         XmlSerializerUtil.copyBean(singleFileExecutionConfig, this);
-    }
-
-    @Nullable
-    public static CamelCaseConfig getInstance(Project project) {
-        return ServiceManager.getService(project, CamelCaseConfig.class);
     }
 }
