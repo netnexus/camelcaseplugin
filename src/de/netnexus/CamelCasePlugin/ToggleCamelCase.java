@@ -68,6 +68,7 @@ public class ToggleCamelCase extends MultiCaretCodeInsightAction {
                     text = editor.getSelectionModel().getSelectedText();
                 }
 
+                int iterations = 0;
                 String newText;
                 boolean repeat;
                 assert text != null;
@@ -172,6 +173,9 @@ public class ToggleCamelCase extends MultiCaretCodeInsightAction {
                                 }
                             }
 
+                        }
+                        if (iterations++ > 10) {
+                            repeat = false;
                         }
                         text = newText;
                     } while (repeat);
