@@ -14,11 +14,11 @@ import java.awt.event.FocusEvent;
 
 public class OptionGui {
     private DefaultListModel model;
+    private JCheckBox cb1;
     private JCheckBox cb2;
     private JCheckBox cb3;
-    private JCheckBox cb5;
     private JCheckBox cb4;
-    private JCheckBox cb1;
+    private JCheckBox cb5;
     private JCheckBox cb6;
     private CamelCaseConfig mConfig;
 
