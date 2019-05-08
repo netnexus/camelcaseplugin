@@ -65,21 +65,6 @@ public abstract class CamelCaseEditorWriteActionHandler<T> extends EditorActionH
         Project project = editor.getProject();
 
         config = CamelCaseConfig.getInstance(project);
-        // kindly asking for a small donation ;-)
-        Preferences userPrefs = Preferences.userNodeForPackage(this.getClass());
-        int usageCount = userPrefs.getInt("usage-count", 0);
-        if (usageCount == 5 || usageCount == 500) {
-            com.intellij.notification.Notification n = new com.intellij.notification.Notification("CamelCase", "CamelCase Plugin", "Like this plugin? Then please consider a small <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7UDEX9ZEBNG7Q'>donation</a>.", NotificationType.INFORMATION);
-            Notifications.Bus.notify(n, project);
-        } else if (usageCount == 2000) {
-            com.intellij.notification.Notification n = new com.intellij.notification.Notification("CamelCase", "CamelCase Plugin", "You have used this plugin about 2000x now. If you like this plugin please consider a small <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7UDEX9ZEBNG7Q'>donation</a>.", NotificationType.INFORMATION);
-            Notifications.Bus.notify(n, project);
-        } else if (usageCount == 10000) {
-            com.intellij.notification.Notification n = new Notification("CamelCase", "CamelCase Plugin", "You have used this plugin about 10000x now. If you like this plugin please consider a small <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7UDEX9ZEBNG7Q'>donation</a>.", NotificationType.INFORMATION);
-            Notifications.Bus.notify(n, project);
-        }
-        userPrefs.putInt("usage-count", ++usageCount);
-
 
         String text = editor.getSelectionModel().getSelectedText();
         if (text == null || text.isEmpty()) {
