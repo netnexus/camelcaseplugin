@@ -29,7 +29,7 @@ public abstract class CamelCaseEditorWriteActionHandler<T> extends EditorActionH
     private String next;
 
     private static void replaceText(final Editor editor, final String replacement) {
-        new WriteAction<>() {
+        new WriteAction<Object>() {
             @Override
             protected void run(@NotNull Result<Object> result) {
                 int start = editor.getSelectionModel().getSelectionStart();
@@ -68,7 +68,6 @@ public abstract class CamelCaseEditorWriteActionHandler<T> extends EditorActionH
         // kindly asking for a small donation ;-)
         Preferences userPrefs = Preferences.userNodeForPackage(this.getClass());
         int usageCount = userPrefs.getInt("usage-count", 0);
-        System.out.print("anzahl: "+usageCount);
         if (usageCount == 5 || usageCount == 500) {
             com.intellij.notification.Notification n = new com.intellij.notification.Notification("CamelCase", "CamelCase Plugin", "Like this plugin? Then please consider a small <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7UDEX9ZEBNG7Q'>donation</a>.", NotificationType.INFORMATION);
             Notifications.Bus.notify(n, project);

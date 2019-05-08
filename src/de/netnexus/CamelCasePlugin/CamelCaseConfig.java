@@ -6,6 +6,7 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @State(
@@ -100,7 +101,7 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
     }
 
     @Override
-    public void loadState(CamelCaseConfig singleFileExecutionConfig) {
+    public void loadState(@NotNull CamelCaseConfig singleFileExecutionConfig) {
         XmlSerializerUtil.copyBean(singleFileExecutionConfig, this);
     }
 }
