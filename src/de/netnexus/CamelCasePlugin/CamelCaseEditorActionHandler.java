@@ -18,6 +18,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
+    CamelCaseEditorActionHandler() {
+        super(true);
+    }
+
     private static void replaceText(final Editor editor, final String replacement) {
         new WriteAction<Object>() {
             @Override

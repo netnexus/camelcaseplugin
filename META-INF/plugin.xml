@@ -11,9 +11,9 @@
     <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
 
-      <p>Release 3.0:
+      <p>Release 3.0.1:
       <ul>
-        <li>Allow to use plugin in dialogs (like refactor/rename).</li>
+        <li>Restore multiple caret mode</li>
       </ul>
       </p>
 
