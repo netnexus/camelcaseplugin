@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>de.netnexus.camelcaseplugin</id>
     <name>CamelCase</name>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus IT Services</vendor>
 
     <description><![CDATA[
