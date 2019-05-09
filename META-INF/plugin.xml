@@ -5,7 +5,9 @@
     <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus IT Services</vendor>
 
     <description><![CDATA[
-      Switch easily between CamelCase, camelCase, snake_case and SNAKE_CASE. See Edit menu or use SHIFT + ALT + U.
+      Switch easily between kebab-case, SNAKE_CASE, PascalCase, camelCase, snake_case or space case. See Edit menu or use ⇧ + ⌥ + U / Shift + Alt + U.
+
+      Allows to disable some conversions or change their order in the preferences.
       ]]></description>
 
     <change-notes><![CDATA[
