@@ -3,7 +3,6 @@ package de.netnexus.CamelCasePlugin;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.Result;
 import com.intellij.openapi.application.WriteAction;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Caret;
@@ -13,6 +12,7 @@ import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.editor.actionSystem.EditorWriteActionHandler;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Pair;
+import com.intellij.util.ThrowableRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,14 +23,16 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
     }
 
     private static void replaceText(final Editor editor, final String replacement) {
-        new WriteAction<Object>() {
-            @Override
-            protected void run(@NotNull Result<Object> result) {
+
+        try {
+            WriteAction.run((ThrowableRunnable<Throwable>) () -> {
                 int start = editor.getSelectionModel().getSelectionStart();
                 EditorModificationUtil.insertStringAtCaret(editor, replacement);
                 editor.getSelectionModel().setSelection(start, start + replacement.length());
-            }
-        }.execute().throwException();
+            });
+        } catch (Throwable ignored) {
+
+        }
     }
 
     @Override
@@ -61,6 +63,7 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
         String newText;
         assert text != null;
+        assert config != null;
         if (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State() || config.getcb6State()) {
             newText = Conversion.transform(text,
                     config.getcb6State(), // space case

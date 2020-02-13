@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.2:
+* Fixed deprecated function
+
 ### Release 3.0.1:
 * Restore multiple caret mode (see #2)
 
