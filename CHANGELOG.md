@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.3:
+* Fixed conversion with special char
+
 ### Release 3.0.2:
 * Fixed deprecated function
 
