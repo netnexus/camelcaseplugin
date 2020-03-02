@@ -3,6 +3,8 @@ package de.netnexus.CamelCasePlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Conversion {
 
@@ -24,10 +26,18 @@ class Conversion {
                             boolean useCamelCase,
                             boolean useLowerSnakeCase,
                             String[] conversionList) {
-        String newText;
+        String newText, appendText = "";
         boolean repeat;
         int iterations = 0;
         String next = null;
+
+        Pattern p = Pattern.compile("^\\W+");
+        Matcher m = p.matcher(text);
+        if (m.find()) {
+            appendText = m.group(0);
+        }
+        //remove all special chars
+        text = text.replaceAll("^\\W+", "");
 
         do {
             newText = text;
@@ -131,13 +141,13 @@ class Conversion {
             text = newText;
         } while (repeat);
 
-        return newText;
+        return appendText + newText;
     }
 
     /**
      * Return next conversion (or wrap to first)
      *
-     * @param conversion String
+     * @param conversion  String
      * @param conversions Array of strings
      * @return next conversion
      */
@@ -150,6 +160,7 @@ class Conversion {
             return conversions[0];
         }
     }
+
     /**
      * Convert a string (CamelCase) to snake_case
      *
