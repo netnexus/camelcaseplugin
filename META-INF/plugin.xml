@@ -15,7 +15,7 @@
 
       <p>Release 3.0.3:
       <ul>
-        <li>Fixed conversion with special char</li>
+        <li>Fixed conversion with leading special char.</li>
       </ul>
       </p>
 
