@@ -10,11 +10,16 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.editor.actionSystem.EditorWriteActionHandler;
+import com.intellij.openapi.editor.actions.EditorActionUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Pair;
 import com.intellij.util.ThrowableRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
@@ -45,7 +50,8 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
         new EditorWriteActionHandler(false) {
             @Override
-            public void executeWriteAction(Editor editor1, @Nullable Caret caret1, DataContext dataContext1) { }
+            public void executeWriteAction(Editor editor1, @Nullable Caret caret1, DataContext dataContext1) {
+            }
         }.doExecute(editor, caret, dataContext);
     }
 
@@ -58,6 +64,37 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
         String text = editor.getSelectionModel().getSelectedText();
         if (text == null || text.isEmpty()) {
             editor.getSelectionModel().selectWordAtCaret(true);
+            boolean moveLeft = true;
+            boolean moveRight = true;
+            int start = editor.getSelectionModel().getSelectionStart();
+            int end = editor.getSelectionModel().getSelectionEnd();
+            Pattern p = Pattern.compile("[^A-z0-9.\\-]");
+
+            // move caret left
+            while (moveLeft && start != 0) {
+                start--;
+                EditorActionUtil.moveCaret(editor.getCaretModel().getCurrentCaret(), start, true);
+                Matcher m = p.matcher(Objects.requireNonNull(editor.getSelectionModel().getSelectedText()));
+                if (m.find()) {
+                    start++;
+                    moveLeft = false;
+                }
+            }
+
+            editor.getSelectionModel().setSelection(end - 1, end);
+
+            // move caret right
+            while (moveRight && end != editor.getDocument().getTextLength()) {
+                end++;
+                EditorActionUtil.moveCaret(editor.getCaretModel().getCurrentCaret(), end, true);
+                Matcher m = p.matcher(Objects.requireNonNull(editor.getSelectionModel().getSelectedText()));
+                if (m.find()) {
+                    end--;
+                    moveRight = false;
+                }
+            }
+            editor.getSelectionModel().setSelection(start, end);
+
             text = editor.getSelectionModel().getSelectedText();
         }
 

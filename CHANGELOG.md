@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.4:
+* Select whole string with dashes
+
 ### Release 3.0.3:
 * Fixed conversion with special char
 
