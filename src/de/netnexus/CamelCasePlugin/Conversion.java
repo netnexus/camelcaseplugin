@@ -89,7 +89,7 @@ class Conversion {
                     }
                 }
 
-            } else if (isUpperCase && text.contains("_")) {
+            } else if ((isUpperCase && text.contains("_")) || (isLowerCase && !text.contains("_") && !text.contains(" "))) {
                 // SNAKE_CASE to PascalCase
                 if (next == null) {
                     next = getNext(CONVERSION_UPPER_SNAKE_CASE, conversionList);
