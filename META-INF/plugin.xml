@@ -13,9 +13,9 @@
     <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
 
-      <p>Release 3.0.4:
+      <p>Release 3.0.5:
       <ul>
-        <li>Select whole string with dashes</li>
+        <li>Fix for string in lower case</li>
       </ul>
       </p>
 

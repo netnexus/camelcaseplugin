@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.5:
+* Fix for string in lower case
+
 ### Release 3.0.4:
 * Select whole string with dashes
 
