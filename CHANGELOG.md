@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### Release 3.0.6:
+* Fixed snake case bug
+* Need IntelliJ Platform version higher than 191.4212.41
+
 ### Release 3.0.5:
 * Fix for string in lower case
 

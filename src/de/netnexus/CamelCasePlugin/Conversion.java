@@ -168,6 +168,7 @@ class Conversion {
      * @return snake_case String
      */
     private static String toSnakeCase(String in) {
+        in = in.replaceAll(" +", "");
         StringBuilder result = new StringBuilder("" + Character.toLowerCase(in.charAt(0)));
         for (int i = 1; i < in.length(); i++) {
             char c = in.charAt(i);

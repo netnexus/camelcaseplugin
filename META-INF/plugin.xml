@@ -13,9 +13,10 @@
     <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
 
-      <p>Release 3.0.5:
+      <p>Release 3.0.6:
       <ul>
-        <li>Fix for string in lower case</li>
+        <li>Fixed snake case bug</li>
+        <li>Need IntelliJ Platform version higher than 191.4212.41</li>
       </ul>
       </p>
 
@@ -23,7 +24,7 @@
     </change-notes>
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="140.0"/>
+    <idea-version since-build="191.4212.41"/>
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
