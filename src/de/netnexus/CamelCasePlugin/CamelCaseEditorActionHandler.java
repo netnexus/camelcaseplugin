@@ -127,7 +127,7 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
 
     private Runnable getRunnableWrapper(final Project project, final Runnable runnable) {
-        return () -> CommandProcessor.getInstance().executeCommand(project, runnable, "camelCase", ActionGroup.EMPTY_GROUP);
+        return () -> CommandProcessor.getInstance().executeCommand(project, runnable, "CamelCase", ActionGroup.EMPTY_GROUP);
     }
 
 }

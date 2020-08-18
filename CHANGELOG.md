@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.7:
+* Support any text field and editor
+
 ### Release 3.0.6:
 * Fixed snake case bug
 * Need IntelliJ Platform version higher than 191.4212.41

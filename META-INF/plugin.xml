@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>de.netnexus.camelcaseplugin</id>
     <name>CamelCase</name>
-    <version>3.0.4</version>
+    <version>3.0.7</version>
     <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus IT Services</vendor>
 
     <description><![CDATA[
@@ -13,10 +13,9 @@
     <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
 
-      <p>Release 3.0.6:
+      <p>Release 3.0.7:
       <ul>
-        <li>Fixed snake case bug</li>
-        <li>Need IntelliJ Platform version higher than 191.4212.41</li>
+        <li>Support any text field and editor</li>
       </ul>
       </p>
 
