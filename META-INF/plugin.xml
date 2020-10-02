@@ -1,8 +1,8 @@
 <idea-plugin>
     <id>de.netnexus.camelcaseplugin</id>
     <name>CamelCase</name>
-    <version>3.0.7</version>
-    <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus IT Services</vendor>
+    <version>3.0.8</version>
+    <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus</vendor>
 
     <description><![CDATA[
       Switch easily between kebab-case, SNAKE_CASE, PascalCase, camelCase, snake_case or space case. See Edit menu or use ⇧ + ⌥ + U / Shift + Alt + U.
