@@ -6,8 +6,11 @@
 
     <description><![CDATA[
       Switch easily between kebab-case, SNAKE_CASE, PascalCase, camelCase, snake_case or space case. See Edit menu or use ⇧ + ⌥ + U / Shift + Alt + U.
-
-      Allows to disable some conversions or change their order in the preferences.
+      <br />
+      Please have a look at the preferences of this plugin: 
+      You can disable some conversions or change their order.
+      <br />
+      If you find something is not working or missing, feel free to submit a PR on our GitHub repo.
       ]]></description>
 
     <change-notes><![CDATA[
