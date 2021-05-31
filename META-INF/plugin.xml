@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>de.netnexus.camelcaseplugin</id>
     <name>CamelCase</name>
-    <version>3.0.8</version>
+    <version>3.0.9</version>
     <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus</vendor>
 
     <description><![CDATA[
@@ -16,9 +16,9 @@
     <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
 
-      <p>Release 3.0.7:
+      <p>Release 3.0.9:
       <ul>
-        <li>Support any text field and editor</li>
+        <li>New Conversion added (Camel Case)</li>
       </ul>
       </p>
 

@@ -1,10 +1,14 @@
 package de.netnexus.CamelCasePlugin;
 
+import org.apache.commons.lang.WordUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
 
 class Conversion {
 
@@ -15,10 +19,12 @@ class Conversion {
     private static final String CONVERSION_UPPER_SNAKE_CASE = "SNAKE_CASE";
     private static final String CONVERSION_PASCAL_CASE = "CamelCase";
     private static final String CONVERSION_CAMEL_CASE = "camelCase";
+    private static final String CONVERSION_PASCAL_CASE_SPACE = "Camel Case";
     private static final String CONVERSION_LOWER_SNAKE_CASE = "snake_case";
 
     @NotNull
     static String transform(String text,
+                            boolean usePascalCaseWithSpace,
                             boolean useSpaceCase,
                             boolean useKebabCase,
                             boolean useUpperSnakeCase,
@@ -60,12 +66,27 @@ class Conversion {
                 newText = text.replace('_', ' ');
 
             } else if (isLowerCase && text.contains(" ")) {
-                // space case to kebab-case
+                // space case to Camel Case
                 if (next == null) {
                     next = getNext(CONVERSION_SPACE_CASE, conversionList);
                     repeat = true;
                 } else {
-                    newText = text.replace(' ', '-');
+                    newText = WordUtils.capitalize(text);
+                    if (next.equals(CONVERSION_PASCAL_CASE_SPACE)) {
+                        repeat = !useKebabCase;
+                        next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
+                    } else {
+                        repeat = true;
+                    }
+                }
+
+            }else if (isUpperCase(text.charAt(0)) && isLowerCase(text.charAt(1)) && text.contains(" ")) {
+                // Camel Case to kebab-case
+                if (next == null) {
+                    next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
+                    repeat = true;
+                } else {
+                    newText = text.toLowerCase().replace(' ', '-');
                     if (next.equals(CONVERSION_KEBAB_CASE)) {
                         repeat = !useKebabCase;
                         next = getNext(CONVERSION_KEBAB_CASE, conversionList);
@@ -172,7 +193,7 @@ class Conversion {
         StringBuilder result = new StringBuilder("" + Character.toLowerCase(in.charAt(0)));
         for (int i = 1; i < in.length(); i++) {
             char c = in.charAt(i);
-            if (Character.isUpperCase(c)) {
+            if (isUpperCase(c)) {
                 result.append("_").append(Character.toLowerCase(c));
             } else {
                 result.append(c);

@@ -50,7 +50,7 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
         new EditorWriteActionHandler(false) {
             @Override
-            public void executeWriteAction(Editor editor1, @Nullable Caret caret1, DataContext dataContext1) {
+            public void executeWriteAction(@NotNull Editor editor1, @Nullable Caret caret1, DataContext dataContext1) {
             }
         }.doExecute(editor, caret, dataContext);
     }
@@ -103,6 +103,7 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
         assert config != null;
         if (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State() || config.getcb6State()) {
             newText = Conversion.transform(text,
+                    config.getcb7State(), // pascal case with space
                     config.getcb6State(), // space case
                     config.getcb1State(), // kebab case
                     config.getcb2State(), // upper snake case

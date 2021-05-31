@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="de.netnexus.CamelCasePlugin.OptionGui">
-  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="354"/>
@@ -19,7 +19,7 @@
       </component>
       <component id="84989" class="javax.swing.JCheckBox" binding="cb3">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="270" height="20"/>
           </grid>
         </constraints>
@@ -30,7 +30,7 @@
       </component>
       <component id="8709d" class="javax.swing.JCheckBox" binding="cb4">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <enabled value="true"/>
@@ -40,7 +40,7 @@
       </component>
       <component id="8b5fe" class="javax.swing.JCheckBox" binding="cb5">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <selected value="true"/>
@@ -60,7 +60,7 @@
       </component>
       <component id="2060a" class="javax.swing.JCheckBox" binding="cb6">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <selected value="true"/>
@@ -70,7 +70,7 @@
       <grid id="b64a3" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="20" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -115,6 +115,15 @@
           </component>
         </children>
       </grid>
+      <component id="cbd69" class="javax.swing.JCheckBox" binding="cb7">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Camel Case"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

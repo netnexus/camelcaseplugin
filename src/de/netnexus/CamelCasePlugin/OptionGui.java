@@ -20,6 +20,7 @@ public class OptionGui {
     private JCheckBox cb4;
     private JCheckBox cb5;
     private JCheckBox cb6;
+    private JCheckBox cb7;
     private CamelCaseConfig mConfig;
 
     private JPanel rootPanel;
@@ -66,6 +67,7 @@ public class OptionGui {
         cb4.setSelected(mConfig.getcb4State());
         cb5.setSelected(mConfig.getcb5State());
         cb6.setSelected(mConfig.getcb6State());
+        cb7.setSelected(mConfig.getcb7State());
 
         if (mConfig.getmodel()!=null){
             model = new DefaultListModel();
@@ -97,6 +99,7 @@ public class OptionGui {
         mConfig.setcb4State(cb4.isSelected());
         mConfig.setcb5State(cb5.isSelected());
         mConfig.setcb6State(cb6.isSelected());
+        mConfig.setcb7State(cb7.isSelected());
 
         Object[] oValues= model.toArray();
         String[] sValues = new String[oValues.length];

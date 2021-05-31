@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.9:
+* New Conversion added (Camel Case)
+
 ### Release 3.0.7:
 * Support any text field and editor
 
