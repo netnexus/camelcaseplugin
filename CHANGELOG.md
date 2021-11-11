@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### Release 3.0.10:
+* Single word bugfix (Foo => FOO => foo)
+* Pascal Case with space bugfix (foo foo => Foo Foo)
+
 ### Release 3.0.9:
 * New Conversion added (Camel Case)
 

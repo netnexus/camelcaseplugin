@@ -73,14 +73,14 @@ class Conversion {
                 } else {
                     newText = WordUtils.capitalize(text);
                     if (next.equals(CONVERSION_PASCAL_CASE_SPACE)) {
-                        repeat = !useKebabCase;
+                        repeat = !usePascalCaseWithSpace;
                         next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
                     } else {
                         repeat = true;
                     }
                 }
 
-            }else if (isUpperCase(text.charAt(0)) && isLowerCase(text.charAt(1)) && text.contains(" ")) {
+            } else if (isUpperCase(text.charAt(0)) && isLowerCase(text.charAt(1)) && text.contains(" ")) {
                 // Camel Case to kebab-case
                 if (next == null) {
                     next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
@@ -95,7 +95,7 @@ class Conversion {
                     }
                 }
 
-            } else if (isLowerCase && text.contains("-")) {
+            } else if (isLowerCase && text.contains("-") || (isLowerCase && !text.contains(" "))) {
                 // kebab-case to SNAKE_CASE
                 if (next == null) {
                     next = getNext(CONVERSION_KEBAB_CASE, conversionList);
@@ -110,7 +110,7 @@ class Conversion {
                     }
                 }
 
-            } else if ((isUpperCase && text.contains("_")) || (isLowerCase && !text.contains("_") && !text.contains(" "))) {
+            } else if ((isUpperCase && text.contains("_")) || (isLowerCase && !text.contains("_") && !text.contains(" ")) || (isUpperCase && !text.contains(" "))) {
                 // SNAKE_CASE to PascalCase
                 if (next == null) {
                     next = getNext(CONVERSION_UPPER_SNAKE_CASE, conversionList);

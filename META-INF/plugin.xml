@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>de.netnexus.camelcaseplugin</id>
     <name>CamelCase</name>
-    <version>3.0.9</version>
+    <version>3.0.10</version>
     <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus</vendor>
 
     <description><![CDATA[
@@ -16,9 +16,10 @@
     <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
 
-      <p>Release 3.0.9:
+      <p>Release 3.0.10:
       <ul>
-        <li>New Conversion added (Camel Case)</li>
+        <li>Single word bugfix (Foo => FOO => foo)</li>
+        <li>Pascal Case with space bugfix (foo foo => Foo Foo)</li>
       </ul>
       </p>
 
