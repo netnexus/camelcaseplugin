@@ -1,7 +1,6 @@
 package de.netnexus.CamelCasePlugin;
 
 import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
@@ -37,7 +36,7 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
 
     @Nullable
     public static CamelCaseConfig getInstance(Project project) {
-        return ServiceManager.getService(project, CamelCaseConfig.class);
+        return project.getService(CamelCaseConfig.class);
     }
 
     public boolean getcb1State() {
