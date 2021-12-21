@@ -12,8 +12,6 @@ import static java.lang.Character.isUpperCase;
 
 class Conversion {
 
-
-    private static final String CONVERSION_SNAKE_CASE = "snake_case";
     private static final String CONVERSION_SPACE_CASE = "space case";
     private static final String CONVERSION_KEBAB_CASE = "kebab-case";
     private static final String CONVERSION_UPPER_SNAKE_CASE = "SNAKE_CASE";
@@ -33,7 +31,7 @@ class Conversion {
                             boolean useLowerSnakeCase,
                             String[] conversionList) {
         String newText, appendText = "";
-        boolean repeat;
+        boolean repeat = true;
         int iterations = 0;
         String next = null;
 
@@ -53,14 +51,11 @@ class Conversion {
             if (isLowerCase && text.contains("_")) {
                 // snake_case to space case
                 if (next == null) {
-                    next = getNext(CONVERSION_SNAKE_CASE, conversionList);
-                    repeat = true;
+                    next = getNext(CONVERSION_LOWER_SNAKE_CASE, conversionList);
                 } else {
                     if (next.equals(CONVERSION_SPACE_CASE)) {
                         repeat = !useSpaceCase;
                         next = getNext(CONVERSION_SPACE_CASE, conversionList);
-                    } else {
-                        repeat = true;
                     }
                 }
                 newText = text.replace('_', ' ');
@@ -69,14 +64,11 @@ class Conversion {
                 // space case to Camel Case
                 if (next == null) {
                     next = getNext(CONVERSION_SPACE_CASE, conversionList);
-                    repeat = true;
                 } else {
                     newText = WordUtils.capitalize(text);
                     if (next.equals(CONVERSION_PASCAL_CASE_SPACE)) {
                         repeat = !usePascalCaseWithSpace;
                         next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
-                    } else {
-                        repeat = true;
                     }
                 }
 
@@ -84,14 +76,11 @@ class Conversion {
                 // Camel Case to kebab-case
                 if (next == null) {
                     next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
-                    repeat = true;
                 } else {
                     newText = text.toLowerCase().replace(' ', '-');
                     if (next.equals(CONVERSION_KEBAB_CASE)) {
                         repeat = !useKebabCase;
                         next = getNext(CONVERSION_KEBAB_CASE, conversionList);
-                    } else {
-                        repeat = true;
                     }
                 }
 
@@ -99,14 +88,11 @@ class Conversion {
                 // kebab-case to SNAKE_CASE
                 if (next == null) {
                     next = getNext(CONVERSION_KEBAB_CASE, conversionList);
-                    repeat = true;
                 } else {
                     newText = text.replace('-', '_').toUpperCase();
                     if (next.equals(CONVERSION_UPPER_SNAKE_CASE)) {
                         repeat = !useUpperSnakeCase;
                         next = getNext(CONVERSION_UPPER_SNAKE_CASE, conversionList);
-                    } else {
-                        repeat = true;
                     }
                 }
 
@@ -114,14 +100,11 @@ class Conversion {
                 // SNAKE_CASE to PascalCase
                 if (next == null) {
                     next = getNext(CONVERSION_UPPER_SNAKE_CASE, conversionList);
-                    repeat = true;
                 } else {
                     newText = Conversion.toCamelCase(text.toLowerCase());
                     if (next.equals(CONVERSION_PASCAL_CASE)) {
                         repeat = !usePascalCase;
                         next = getNext(CONVERSION_PASCAL_CASE, conversionList);
-                    } else {
-                        repeat = true;
                     }
                 }
 
@@ -129,34 +112,26 @@ class Conversion {
                 // PascalCase to camelCase
                 if (next == null) {
                     next = getNext(CONVERSION_PASCAL_CASE, conversionList);
-                    repeat = true;
                 } else {
                     newText = text.substring(0, 1).toLowerCase() + text.substring(1);
                     if (next.equals(CONVERSION_CAMEL_CASE)) {
                         repeat = !useCamelCase;
                         next = getNext(CONVERSION_CAMEL_CASE, conversionList);
-                    } else {
-                        repeat = true;
                     }
                 }
-
             } else {
                 // camelCase to snake_case
                 if (next == null) {
                     next = getNext(CONVERSION_CAMEL_CASE, conversionList);
-                    repeat = true;
                 } else {
                     newText = Conversion.toSnakeCase(text);
                     if (next.equals(CONVERSION_LOWER_SNAKE_CASE)) {
                         repeat = !useLowerSnakeCase;
                         next = getNext(CONVERSION_LOWER_SNAKE_CASE, conversionList);
-                    } else {
-                        repeat = true;
                     }
                 }
-
             }
-            if (iterations++ > 10) {
+            if (iterations++ > 20) {
                 repeat = false;
             }
             text = newText;
