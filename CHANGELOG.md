@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.11:
+* Bugfix: if only camelCase and snake_case is selected in the options
+
 ### Release 3.0.10:
 * Single word bugfix (Foo => FOO => foo)
 * Pascal Case with space bugfix (foo foo => Foo Foo)
