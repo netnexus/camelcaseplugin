@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### Release 3.0.12:
+* Bugfix: use standard config if com.intellij.openapi.project.Project is null
+
 ### Release 3.0.11:
 * Bugfix: if only camelCase and snake_case is selected in the options
 

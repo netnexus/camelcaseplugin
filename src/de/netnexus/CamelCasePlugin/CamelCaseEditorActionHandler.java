@@ -57,10 +57,6 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
     @NotNull
     private Pair<Boolean, T> beforeWriteAction(Editor editor) {
-        Project project = editor.getProject();
-
-        CamelCaseConfig config = CamelCaseConfig.getInstance(project);
-
         String text = editor.getSelectionModel().getSelectedText();
         if (text == null || text.isEmpty()) {
             editor.getSelectionModel().selectWordAtCaret(true);
@@ -97,30 +93,45 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
             text = editor.getSelectionModel().getSelectedText();
         }
+        Project project = editor.getProject();
 
         String newText;
-        assert text != null;
-        assert config != null;
-        if (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State() || config.getcb6State()) {
-            newText = Conversion.transform(text,
-                    config.getcb7State(), // pascal case with space
-                    config.getcb6State(), // space case
-                    config.getcb1State(), // kebab case
-                    config.getcb2State(), // upper snake case
-                    config.getcb3State(), // pascal case
-                    config.getcb4State(), // camel case
-                    config.getcb5State(), // lower snake case
-                    config.getmodel());
-
-            final Editor fEditor = editor;
-            final String fReplacement = newText;
-            Runnable runnable = () -> CamelCaseEditorActionHandler.replaceText(fEditor, fReplacement);
-            ApplicationManager.getApplication().runWriteAction(getRunnableWrapper(fEditor.getProject(), runnable));
+        if (project != null) {
+            CamelCaseConfig config = CamelCaseConfig.getInstance(project);
+            if (config != null && (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State() || config.getcb6State())) {
+                newText = Conversion.transform(text, config.getcb7State(), // pascal case with space
+                        config.getcb6State(), // space case
+                        config.getcb1State(), // kebab case
+                        config.getcb2State(), // upper snake case
+                        config.getcb3State(), // pascal case
+                        config.getcb4State(), // camel case
+                        config.getcb5State(), // lower snake case
+                        config.getmodel());
+            } else {
+                newText = this.runWithoutConfig(text);
+            }
+        } else {
+            newText = this.runWithoutConfig(text);
         }
 
+        final Editor fEditor = editor;
+        final String fReplacement = newText;
+        Runnable runnable = () -> CamelCaseEditorActionHandler.replaceText(fEditor, fReplacement);
+        ApplicationManager.getApplication().runWriteAction(getRunnableWrapper(fEditor.getProject(), runnable));
         return continueExecution();
     }
 
+    private String runWithoutConfig(String text) {
+        String[] conversionList = {"kebab-case", "SNAKE_CASE", "CamelCase", "camelCase", "snake_case", "space case", "Camel Case"};
+        return Conversion.transform(text, true, // pascal case with space
+                true, // space case
+                true, // kebab case
+                true, // upper snake case
+                true, // pascal case
+                true, // camel case
+                true, // lower snake case
+                conversionList);
+    }
 
     private Pair<Boolean, T> continueExecution() {
         return new Pair<>(true, null);

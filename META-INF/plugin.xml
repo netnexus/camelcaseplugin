@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>de.netnexus.camelcaseplugin</id>
     <name>CamelCase</name>
-    <version>3.0.11</version>
+    <version>3.0.12</version>
     <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus</vendor>
 
     <description><![CDATA[
@@ -16,9 +16,9 @@
     <change-notes><![CDATA[
       <p>If you have any comments please let me know.</p>
 
-      <p>Release 3.0.11:
+      <p>Release 3.0.12:
       <ul>
-        <li>Bugfix: if only camelCase and snake_case is selected in the options</li>
+        <li>Bugfix: use standard config if com.intellij.openapi.project.Project is null</li>
       </ul>
       </p>
 
