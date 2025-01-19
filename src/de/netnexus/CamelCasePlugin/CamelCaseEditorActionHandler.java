@@ -122,7 +122,7 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
     }
 
     private String runWithoutConfig(String text) {
-        String[] conversionList = {"kebab-case", "SNAKE_CASE", "CamelCase", "camelCase", "snake_case", "space case", "Camel Case"};
+        String[] conversionList = {"kebab-case", "SNAKE_CASE", "PascalCase", "camelCase", "snake_case", "space case", "Space Case"};
         return Conversion.transform(text, true, // pascal case with space
                 true, // space case
                 true, // kebab case
