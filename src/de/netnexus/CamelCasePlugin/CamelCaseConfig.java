@@ -24,11 +24,11 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
     public String[] model = {
             "kebab-case",
             "SNAKE_CASE",
-            "CamelCase",
+            "PascalCase",
             "camelCase",
             "snake_case",
             "space case",
-            "Camel Case",};
+            "Space Case",};
 
 
     CamelCaseConfig() {

@@ -131,7 +131,7 @@ class Conversion {
                     }
                 }
             }
-            if (iterations++ > 20) {
+            if (iterations++ > 49) {
                 repeat = false;
             }
             text = newText;
