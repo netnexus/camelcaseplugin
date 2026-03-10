@@ -1,8 +1,9 @@
-package de.netnexus.CamelCasePlugin;
+package de.netnexus.camelcase.ui;
 
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.project.Project;
+import de.netnexus.camelcase.config.CamelCaseConfig;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -65,12 +66,14 @@ public class CamelCasePluginConfigurable implements SearchableConfigurable {
 
     @Override
     public boolean isModified() {
-        return true;
+        return mGUI.isModified();
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        mGUI.apply();
+        if (mGUI != null) {
+            mGUI.apply();
+        }
     }
 
     @Override

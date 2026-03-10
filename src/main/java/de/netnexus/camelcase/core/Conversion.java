@@ -1,4 +1,4 @@
-package de.netnexus.CamelCasePlugin;
+package de.netnexus.camelcase.core;
 
 import org.apache.commons.lang.WordUtils;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 
-class Conversion {
+public class Conversion {
 
     private static final String CONVERSION_SPACE_CASE = "space case";
     private static final String CONVERSION_KEBAB_CASE = "kebab-case";
@@ -21,7 +21,7 @@ class Conversion {
     private static final String CONVERSION_LOWER_SNAKE_CASE = "snake_case";
 
     @NotNull
-    static String transform(String text,
+    public static String transform(String text,
                             boolean usePascalCaseWithSpace,
                             boolean useSpaceCase,
                             boolean useKebabCase,
@@ -187,7 +187,7 @@ class Conversion {
         StringBuilder camelCased = new StringBuilder();
         String[] tokens = in.split("_");
         for (String token : tokens) {
-            if (token.length() >= 1) {
+            if (!token.isEmpty()) {
                 camelCased.append(token.substring(0, 1).toUpperCase()).append(token.substring(1));
             } else {
                 camelCased.append("_");

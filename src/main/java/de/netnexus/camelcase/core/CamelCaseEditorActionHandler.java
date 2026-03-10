@@ -1,4 +1,4 @@
-package de.netnexus.CamelCasePlugin;
+package de.netnexus.camelcase.core;
 
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.DataContext;
@@ -14,6 +14,7 @@ import com.intellij.openapi.editor.actions.EditorActionUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Pair;
 import com.intellij.util.ThrowableRunnable;
+import de.netnexus.camelcase.config.CamelCaseConfig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
-    CamelCaseEditorActionHandler() {
+    public CamelCaseEditorActionHandler() {
         super(true);
     }
 
@@ -99,13 +100,22 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
         if (project != null) {
             CamelCaseConfig config = CamelCaseConfig.getInstance(project);
             if (config != null && (config.getcb1State() || config.getcb2State() || config.getcb3State() || config.getcb4State() || config.getcb5State() || config.getcb6State())) {
-                newText = Conversion.transform(text, config.getcb7State(), // pascal case with space
-                        config.getcb6State(), // space case
-                        config.getcb1State(), // kebab case
-                        config.getcb2State(), // upper snake case
-                        config.getcb3State(), // pascal case
-                        config.getcb4State(), // camel case
-                        config.getcb5State(), // lower snake case
+                newText = Conversion.transform(
+                        text,
+                        // pascal case with space
+                        config.getcb7State(),
+                        // space case
+                        config.getcb6State(),
+                        // kebab case
+                        config.getcb1State(),
+                        // upper snake case
+                        config.getcb2State(),
+                        // pascal case
+                        config.getcb3State(),
+                        // camel case
+                        config.getcb4State(),
+                        // lower snake case
+                        config.getcb5State(),
                         config.getmodel());
             } else {
                 newText = this.runWithoutConfig(text);
@@ -123,13 +133,22 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
 
     private String runWithoutConfig(String text) {
         String[] conversionList = {"kebab-case", "SNAKE_CASE", "CamelCase", "camelCase", "snake_case", "space case", "Camel Case"};
-        return Conversion.transform(text, true, // pascal case with space
-                true, // space case
-                true, // kebab case
-                true, // upper snake case
-                true, // pascal case
-                true, // camel case
-                true, // lower snake case
+        return Conversion.transform(
+                text,
+                // pascal case with space
+                true,
+                // space case
+                true,
+                // kebab case
+                true,
+                // upper snake case
+                true,
+                // pascal case
+                true,
+                // camel case
+                true,
+                // lower snake case
+                true,
                 conversionList);
     }
 

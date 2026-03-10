@@ -1,3 +1,4 @@
+<!-- Plugin description -->
 # Camel Case Plugin
 CamelCasePlugin for IntelliJ IDEs (e.g. PhpStorm, IntelliJ IDEA, ...)
 
@@ -14,3 +15,4 @@ Use your IDE. Preferences/Plugins/Browse repositories and search for "camelcase"
 
 ## Build
 Just clone this repo and open the project it in IntelliJ IDEA.
+<!-- Plugin description end -->

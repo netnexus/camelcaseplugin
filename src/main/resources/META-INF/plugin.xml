@@ -1,29 +1,7 @@
 <idea-plugin>
     <id>de.netnexus.camelcaseplugin</id>
     <name>CamelCase</name>
-    <version>3.0.12</version>
     <vendor email="info@netnexus.de" url="http://netnexus.de?src=camelCase">NetNexus</vendor>
-
-    <description><![CDATA[
-      Switch easily between kebab-case, SNAKE_CASE, PascalCase, camelCase, snake_case or space case. See Edit menu or use ⇧ + ⌥ + U / Shift + Alt + U.
-      <br />
-      Please have a look at the preferences of this plugin: 
-      You can disable some conversions or change their order.
-      <br />
-      If you find something is not working or missing, feel free to submit a PR on our GitHub repo.
-      ]]></description>
-
-    <change-notes><![CDATA[
-      <p>If you have any comments please let me know.</p>
-
-      <p>Release 3.0.12:
-      <ul>
-        <li>Bugfix: use standard config if com.intellij.openapi.project.Project is null</li>
-      </ul>
-      </p>
-
-      ]]>
-    </change-notes>
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
     <idea-version since-build="193.5233.102"/>
@@ -44,7 +22,7 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="de.netnexus.CamelCasePlugin.ToggleCamelCase" class="de.netnexus.CamelCasePlugin.ToggleCamelCase"
+        <action id="de.netnexus.camelcase.action.ToggleCamelCase" class="de.netnexus.camelcase.action.ToggleCamelCaseAction"
                 text="Toggle Camel Case"
                 description="Switches between CamelCase, camelCase and snake_case">
             <add-to-group group-id="EditSmartGroup" anchor="after" relative-to-action="EditorToggleCase"/>
@@ -55,8 +33,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <projectService
-                serviceImplementation="de.netnexus.CamelCasePlugin.CamelCaseConfig"/>
-        <projectConfigurable groupId="editor" displayName="Camel Case" id="preferences.CamelCasePlugin"
-                             instance="de.netnexus.CamelCasePlugin.CamelCasePluginConfigurable"/>
+                serviceImplementation="de.netnexus.camelcase.config.CamelCaseConfig"/>
+        <projectConfigurable displayName="Camel Case" id="preferences.CamelCasePlugin"
+                             instance="de.netnexus.camelcase.ui.CamelCasePluginConfigurable"/>
     </extensions>
 </idea-plugin>

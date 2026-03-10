@@ -1,8 +1,11 @@
-package de.netnexus.CamelCasePlugin;
+package de.netnexus.camelcase.ui;
 
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Comparing;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import de.netnexus.camelcase.config.CamelCaseConfig;
+import de.netnexus.camelcase.i18n.CamelCaseBundle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,36 +30,39 @@ public class OptionGui {
     private JButton upButton;
     private JButton downButton;
     private JList list1;
+    private JLabel orderLabel;
 
     OptionGui() {
+        initLocalization();
 
-        upButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        upButton.addActionListener(e -> {
 
-                String selectedItem = (String) list1.getSelectedValue();
-                int itemIndex = list1.getSelectedIndex();
+            String selectedItem = (String) list1.getSelectedValue();
+            int itemIndex = list1.getSelectedIndex();
 
-                if(itemIndex > 0){
-                    model.remove(itemIndex);
-                    model.add(itemIndex - 1, selectedItem);
-                    list1.setSelectedIndex(itemIndex - 1);
-                }
+            if(itemIndex > 0){
+                model.remove(itemIndex);
+                model.add(itemIndex - 1, selectedItem);
+                list1.setSelectedIndex(itemIndex - 1);
             }
         });
-        downButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selectedItem = (String) list1.getSelectedValue();
-                int itemIndex = list1.getSelectedIndex();
+        
+        downButton.addActionListener(e -> {
+            String selectedItem = (String) list1.getSelectedValue();
+            int itemIndex = list1.getSelectedIndex();
 
-                if( itemIndex < model.getSize() -1 ){
-                    model.remove(itemIndex);
-                    model.add(itemIndex + 1, selectedItem);
-                    list1.setSelectedIndex(itemIndex + 1);
-                }
+            if( itemIndex < model.getSize() -1 ){
+                model.remove(itemIndex);
+                model.add(itemIndex + 1, selectedItem);
+                list1.setSelectedIndex(itemIndex + 1);
             }
         });
+    }
+
+    private void initLocalization() {
+        orderLabel.setText(CamelCaseBundle.message("action.order.text"));
+        upButton.setText(CamelCaseBundle.message("action.up.text"));
+        downButton.setText(CamelCaseBundle.message("action.down.text"));
     }
 
     public void createUI(Project project) {
@@ -91,6 +97,15 @@ public class OptionGui {
         // TODO: place custom component creation code here
     }
 
+    public boolean isModified() {
+        return !Comparing.equal(mConfig.cb1State, cb1.isSelected()) ||
+                !Comparing.equal(mConfig.cb2State, cb2.isSelected()) ||
+                !Comparing.equal(mConfig.cb3State, cb3.isSelected()) ||
+                !Comparing.equal(mConfig.cb4State, cb4.isSelected()) ||
+                !Comparing.equal(mConfig.cb5State, cb5.isSelected()) ||
+                !Comparing.equal(mConfig.cb6State, cb6.isSelected()) ||
+                !Comparing.equal(mConfig.cb7State, cb7.isSelected());
+    }
 
     public void apply() {
         mConfig.setcb1State(cb1.isSelected());
