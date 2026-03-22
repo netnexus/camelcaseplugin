@@ -28,7 +28,9 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
             "camelCase",
             "snake_case",
             "space case",
-            "Camel Case",};
+            "Camel Case",
+    };
+    public String[] activeModel = model;
 
 
     CamelCaseConfig() {
@@ -98,11 +100,17 @@ public class CamelCaseConfig implements PersistentStateComponent<CamelCaseConfig
     public String[] getmodel() {
         return model;
     }
-
     public void setListModel(String[] model) {
         this.model = model;
     }
 
+    public String[] getActiveModel() {
+        return activeModel;
+    }
+
+    public void setActiveModel(String[] model) {
+        this.activeModel = model;
+    }
     @Nullable
     @Override
     public CamelCaseConfig getState() {

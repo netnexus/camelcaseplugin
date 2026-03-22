@@ -4,6 +4,8 @@ import org.apache.commons.lang.WordUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,132 +14,57 @@ import static java.lang.Character.isUpperCase;
 
 class Conversion {
 
-    private static final String CONVERSION_SPACE_CASE = "space case";
-    private static final String CONVERSION_KEBAB_CASE = "kebab-case";
-    private static final String CONVERSION_UPPER_SNAKE_CASE = "SNAKE_CASE";
-    private static final String CONVERSION_PASCAL_CASE = "CamelCase";
-    private static final String CONVERSION_CAMEL_CASE = "camelCase";
-    private static final String CONVERSION_PASCAL_CASE_SPACE = "Camel Case";
-    private static final String CONVERSION_LOWER_SNAKE_CASE = "snake_case";
+    static final String CONVERSION_SPACE_CASE = "space case";
+    static final String CONVERSION_KEBAB_CASE = "kebab-case";
+    static final String CONVERSION_UPPER_SNAKE_CASE = "SNAKE_CASE";
+    static final String CONVERSION_PASCAL_CASE = "CamelCase";
+    static final String CONVERSION_CAMEL_CASE = "camelCase";
+    static final String CONVERSION_PASCAL_CASE_SPACE = "Camel Case";
+    static final String CONVERSION_LOWER_SNAKE_CASE = "snake_case";
+    static final List<String> ConversionList = List.of(new String[]{"kebab-case", "SNAKE_CASE", "CamelCase", "camelCase", "snake_case", "space case", "Camel Case"});
 
     @NotNull
-    static String transform(String text,
-                            boolean usePascalCaseWithSpace,
-                            boolean useSpaceCase,
-                            boolean useKebabCase,
-                            boolean useUpperSnakeCase,
-                            boolean usePascalCase,
-                            boolean useCamelCase,
-                            boolean useLowerSnakeCase,
-                            String[] conversionList) {
-        String newText, appendText = "";
-        boolean repeat = true;
-        int iterations = 0;
-        String next = null;
+    static String transform(String text, String target) {
+        String appendText = "";
 
         Pattern p = Pattern.compile("^\\W+");
         Matcher m = p.matcher(text);
         if (m.find()) {
             appendText = m.group(0);
         }
-        //remove all special chars
-        text = text.replaceAll("^\\W+", "");
 
-        do {
-            newText = text;
-            boolean isLowerCase = text.equals(text.toLowerCase());
-            boolean isUpperCase = text.equals(text.toUpperCase());
+        int iterations = 0;
+        text = text.replaceAll("^\\W+", "");  //remove all special chars
+        String current = CaseType(text);
 
-            if (isLowerCase && text.contains("_")) {
+        int idxCurrent = ConversionList.indexOf(current);
+        int idxObjectCase = ConversionList.indexOf(target);
+        int repeatedTimes = (idxObjectCase + ConversionList.size() - idxCurrent) % ConversionList.size();
+
+        while (iterations++ < repeatedTimes) {
+            switch (ConversionList.get(idxCurrent)) {
                 // snake_case to space case
-                if (next == null) {
-                    next = getNext(CONVERSION_LOWER_SNAKE_CASE, conversionList);
-                } else {
-                    if (next.equals(CONVERSION_SPACE_CASE)) {
-                        repeat = !useSpaceCase;
-                        next = getNext(CONVERSION_SPACE_CASE, conversionList);
-                    }
-                }
-                newText = text.replace('_', ' ');
-
-            } else if (isLowerCase && text.contains(" ")) {
+                case CONVERSION_LOWER_SNAKE_CASE -> text = text.replace('_', ' ');
                 // space case to Camel Case
-                if (next == null) {
-                    next = getNext(CONVERSION_SPACE_CASE, conversionList);
-                } else {
-                    newText = WordUtils.capitalize(text);
-                    if (next.equals(CONVERSION_PASCAL_CASE_SPACE)) {
-                        repeat = !usePascalCaseWithSpace;
-                        next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
-                    }
-                }
-
-            } else if (isUpperCase(text.charAt(0)) && isLowerCase(text.charAt(1)) && text.contains(" ")) {
+                case CONVERSION_SPACE_CASE -> text = WordUtils.capitalize(text);
                 // Camel Case to kebab-case
-                if (next == null) {
-                    next = getNext(CONVERSION_PASCAL_CASE_SPACE, conversionList);
-                } else {
-                    newText = text.toLowerCase().replace(' ', '-');
-                    if (next.equals(CONVERSION_KEBAB_CASE)) {
-                        repeat = !useKebabCase;
-                        next = getNext(CONVERSION_KEBAB_CASE, conversionList);
-                    }
-                }
-
-            } else if (isLowerCase && text.contains("-") || (isLowerCase && !text.contains(" "))) {
+                case CONVERSION_PASCAL_CASE_SPACE -> text = text.toLowerCase().replace(' ', '-');
                 // kebab-case to SNAKE_CASE
-                if (next == null) {
-                    next = getNext(CONVERSION_KEBAB_CASE, conversionList);
-                } else {
-                    newText = text.replace('-', '_').toUpperCase();
-                    if (next.equals(CONVERSION_UPPER_SNAKE_CASE)) {
-                        repeat = !useUpperSnakeCase;
-                        next = getNext(CONVERSION_UPPER_SNAKE_CASE, conversionList);
-                    }
-                }
-
-            } else if ((isUpperCase && text.contains("_")) || (isLowerCase && !text.contains("_") && !text.contains(" ")) || (isUpperCase && !text.contains(" "))) {
+                case CONVERSION_KEBAB_CASE -> text = text.replace('-', '_').toUpperCase();
                 // SNAKE_CASE to PascalCase
-                if (next == null) {
-                    next = getNext(CONVERSION_UPPER_SNAKE_CASE, conversionList);
-                } else {
-                    newText = Conversion.toCamelCase(text.toLowerCase());
-                    if (next.equals(CONVERSION_PASCAL_CASE)) {
-                        repeat = !usePascalCase;
-                        next = getNext(CONVERSION_PASCAL_CASE, conversionList);
-                    }
-                }
-
-            } else if (!isUpperCase && text.substring(0, 1).equals(text.substring(0, 1).toUpperCase()) && !text.contains("_")) {
+                case CONVERSION_UPPER_SNAKE_CASE -> text = Conversion.toCamelCase(text.toLowerCase());
                 // PascalCase to camelCase
-                if (next == null) {
-                    next = getNext(CONVERSION_PASCAL_CASE, conversionList);
-                } else {
-                    newText = text.substring(0, 1).toLowerCase() + text.substring(1);
-                    if (next.equals(CONVERSION_CAMEL_CASE)) {
-                        repeat = !useCamelCase;
-                        next = getNext(CONVERSION_CAMEL_CASE, conversionList);
-                    }
-                }
-            } else {
+                case CONVERSION_PASCAL_CASE -> text = text.substring(0, 1).toLowerCase() + text.substring(1);
                 // camelCase to snake_case
-                if (next == null) {
-                    next = getNext(CONVERSION_CAMEL_CASE, conversionList);
-                } else {
-                    newText = Conversion.toSnakeCase(text);
-                    if (next.equals(CONVERSION_LOWER_SNAKE_CASE)) {
-                        repeat = !useLowerSnakeCase;
-                        next = getNext(CONVERSION_LOWER_SNAKE_CASE, conversionList);
-                    }
-                }
+                case CONVERSION_CAMEL_CASE -> text = Conversion.toSnakeCase(text);
+                default -> iterations = 8;
             }
-            if (iterations++ > 20) {
-                repeat = false;
-            }
-            text = newText;
-        } while (repeat);
 
-        return appendText + newText;
+
+            idxCurrent = (idxCurrent+1)%ConversionList.size();
+        }
+
+        return appendText + text;
     }
 
     /**
@@ -147,7 +74,7 @@ class Conversion {
      * @param conversions Array of strings
      * @return next conversion
      */
-    private static String getNext(String conversion, String[] conversions) {
+    static String getNext(String conversion, String[] conversions) {
         int index;
         index = Arrays.asList(conversions).indexOf(conversion) + 1;
         if (index < conversions.length) {
@@ -187,12 +114,39 @@ class Conversion {
         StringBuilder camelCased = new StringBuilder();
         String[] tokens = in.split("_");
         for (String token : tokens) {
-            if (token.length() >= 1) {
+            if (!token.isEmpty()) {
                 camelCased.append(token.substring(0, 1).toUpperCase()).append(token.substring(1));
             } else {
                 camelCased.append("_");
             }
         }
         return camelCased.toString();
+    }
+
+    /**
+     * Get a string case type
+     *
+     * @param text snake_case String
+     * @return CaseType string
+     */
+    static String CaseType(String text) {
+        boolean isLowerCase = text.equals(text.toLowerCase());
+        boolean isUpperCase = text.equals(text.toUpperCase());
+
+        if (isLowerCase && text.contains("_")) {
+            return CONVERSION_LOWER_SNAKE_CASE;
+        } else if (isLowerCase && text.contains(" ")) {
+            return CONVERSION_SPACE_CASE;
+        } else if (isUpperCase(text.charAt(0)) && text.contains(" ")) {
+            return CONVERSION_PASCAL_CASE_SPACE;
+        } else if (isLowerCase && text.contains("-") || (isLowerCase && !text.contains(" "))) {
+            return CONVERSION_KEBAB_CASE;
+        } else if ((isUpperCase && text.contains("_")) || (isLowerCase && !text.contains("_") && !text.contains(" ")) || (isUpperCase && !text.contains(" "))) {
+            return CONVERSION_UPPER_SNAKE_CASE;
+        } else if (!isUpperCase && isUpperCase(text.charAt(0)) && !text.contains("_") && !text.contains(" ")) {
+            return CONVERSION_PASCAL_CASE;
+        } else {
+            return CONVERSION_CAMEL_CASE;
+        }
     }
 }

@@ -7,7 +7,7 @@ Allows to disable some conversions or change their order in the preferences.
 
 Please see this example for a demonstration:
 
-![Demonstration](https://raw.githubusercontent.com/netnexus/camelcaseplugin/assets/example.gif)
+![Demonstration](https://github.com/user-attachments/assets/72001e9b-402d-4971-8a82-3375c70d858d)
 
 ## Install
 Use your IDE. Preferences/Plugins/Browse repositories and search for "camelcase".

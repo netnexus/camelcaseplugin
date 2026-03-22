@@ -8,8 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class OptionGui {
@@ -107,6 +108,33 @@ public class OptionGui {
             sValues[index] = oValues[index].toString();
         }
         mConfig.setListModel(sValues);
+
+        String[] activeModel = mConfig.model;
+        List<String> list = new ArrayList<>(Arrays.asList(activeModel));
+
+        if (!mConfig.getcb1State()) {
+            list.removeIf(e -> e.equals("kebab-case"));
+        }
+        if (!mConfig.getcb2State()) {
+            list.removeIf(e -> e.equals("SNAKE_CASE"));
+        }
+        if (!mConfig.getcb3State()) {
+            list.removeIf(e -> e.equals("CamelCase"));
+        }
+        if (!mConfig.getcb4State()) {
+            list.removeIf(e -> e.equals("camelCase"));
+        }
+        if (!mConfig.getcb5State()) {
+            list.removeIf(e -> e.equals("snake_case"));
+        }
+        if (!mConfig.getcb6State()) {
+            list.removeIf(e -> e.equals("space case"));
+        }
+        if (!mConfig.getcb7State()) {
+            list.removeIf(e -> e.equals("Camel Case"));
+        }
+
+        mConfig.setActiveModel(list.toArray(new String[0]));
     }
 
     {
