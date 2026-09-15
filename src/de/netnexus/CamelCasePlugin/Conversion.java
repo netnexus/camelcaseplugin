@@ -1,6 +1,5 @@
 package de.netnexus.CamelCasePlugin;
 
-import org.apache.commons.lang.WordUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -46,7 +45,7 @@ class Conversion {
                 // snake_case to space case
                 case CONVERSION_LOWER_SNAKE_CASE -> text = text.replace('_', ' ');
                 // space case to Camel Case
-                case CONVERSION_SPACE_CASE -> text = WordUtils.capitalize(text);
+                case CONVERSION_SPACE_CASE -> text = capitalize(text);
                 // Camel Case to kebab-case
                 case CONVERSION_PASCAL_CASE_SPACE -> text = text.toLowerCase().replace(' ', '-');
                 // kebab-case to SNAKE_CASE
@@ -121,6 +120,26 @@ class Conversion {
             }
         }
         return camelCased.toString();
+    }
+
+    // Match WordUtils.capitalize: title-case each whitespace-delimited word,
+    // preserving whitespace and all remaining characters (upstream issue #36).
+    private static String capitalize(String text) {
+        StringBuilder result = new StringBuilder(text.length());
+        boolean capitalizeNext = true;
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if (Character.isWhitespace(ch)) {
+                result.append(ch);
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
+                result.append(Character.toTitleCase(ch));
+                capitalizeNext = false;
+            } else {
+                result.append(ch);
+            }
+        }
+        return result.toString();
     }
 
     /**
