@@ -32,7 +32,7 @@
          on how to target different products -->
     <!-- uncomment to enable plugin in all products
     -->
-    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.platform</depends>
 
     <application-components>
         <!-- Add your application components here -->

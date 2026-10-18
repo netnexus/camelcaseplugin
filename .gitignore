@@ -1,3 +1,7 @@
 .DS_Store
 .idea
 out
+/.gradle/
+/.intellijPlatform/
+/build/
+/scripts/local.mk

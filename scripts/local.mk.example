@@ -1,0 +1,13 @@
+# Copy this file to scripts/local.mk for machine-specific build settings.
+# scripts/local.mk is ignored by Git.
+
+# JAVA_HOME := /opt/homebrew/opt/openjdk@25
+
+# GRADLE_DISTRIBUTION_URL := https://your-gradle-mirror.example/gradle-9.0.0-bin.zip
+# LOCAL_IDE_PATH := /Applications/IntelliJ IDEA.app
+# MAVEN_MIRROR_URL := https://your-maven-mirror.example/repository/public
+# GRADLE_PLUGIN_MIRROR_URL := https://your-maven-mirror.example/repository/gradle-plugin
+# SKIP_INTELLIJ_AUXILIARY_TASKS := true
+
+# Use this only if your network cannot reach JetBrains' update service.
+# GRADLE_ARGS += -Porg.jetbrains.intellij.platform.selfUpdateCheck=false

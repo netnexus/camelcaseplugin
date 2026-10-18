@@ -44,20 +44,36 @@ class Conversion {
         while (iterations++ < repeatedTimes) {
             switch (ConversionList.get(idxCurrent)) {
                 // snake_case to space case
-                case CONVERSION_LOWER_SNAKE_CASE -> text = text.replace('_', ' ');
+                case CONVERSION_LOWER_SNAKE_CASE:
+                    text = text.replace('_', ' ');
+                    break;
                 // space case to Camel Case
-                case CONVERSION_SPACE_CASE -> text = WordUtils.capitalize(text);
+                case CONVERSION_SPACE_CASE:
+                    text = WordUtils.capitalize(text);
+                    break;
                 // Camel Case to kebab-case
-                case CONVERSION_PASCAL_CASE_SPACE -> text = text.toLowerCase().replace(' ', '-');
+                case CONVERSION_PASCAL_CASE_SPACE:
+                    text = text.toLowerCase().replace(' ', '-');
+                    break;
                 // kebab-case to SNAKE_CASE
-                case CONVERSION_KEBAB_CASE -> text = text.replace('-', '_').toUpperCase();
+                case CONVERSION_KEBAB_CASE:
+                    text = text.replace('-', '_').toUpperCase();
+                    break;
                 // SNAKE_CASE to PascalCase
-                case CONVERSION_UPPER_SNAKE_CASE -> text = Conversion.toCamelCase(text.toLowerCase());
+                case CONVERSION_UPPER_SNAKE_CASE:
+                    text = Conversion.toCamelCase(text.toLowerCase());
+                    break;
                 // PascalCase to camelCase
-                case CONVERSION_PASCAL_CASE -> text = text.substring(0, 1).toLowerCase() + text.substring(1);
+                case CONVERSION_PASCAL_CASE:
+                    text = text.substring(0, 1).toLowerCase() + text.substring(1);
+                    break;
                 // camelCase to snake_case
-                case CONVERSION_CAMEL_CASE -> text = Conversion.toSnakeCase(text);
-                default -> iterations = 8;
+                case CONVERSION_CAMEL_CASE:
+                    text = Conversion.toSnakeCase(text);
+                    break;
+                default:
+                    iterations = 8;
+                    break;
             }
 
 

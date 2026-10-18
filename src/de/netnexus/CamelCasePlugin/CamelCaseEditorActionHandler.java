@@ -106,7 +106,7 @@ public class CamelCaseEditorActionHandler<T> extends EditorActionHandler {
             int end = start;
             boolean moveLeft = true;
             boolean moveRight = true;
-            Pattern p = Pattern.compile("[^A-Za-z0-9.\\-]");
+            Pattern p = Pattern.compile("[^A-Za-z0-9._\\-]");
 
             // move caret left
             while (moveLeft && start > 0) {
